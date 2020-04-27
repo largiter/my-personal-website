@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `PORTFOLIO - Wiktor Kocik - Front-end Developer`,
-    description: `My personal portfolio`,
+    title: `Wiktor Kocik - Front-end Developer`,
+    description: `Developer based in Krakow, Poland specializing in building modern, high quality, responsive websites and web / mobile applications.`,
     author: `Wiktor Kocik`,
   },
   plugins: [
@@ -43,11 +43,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `WiktorKocik`,
+        short_name: `WiktorKocik`,
         start_url: `/`,
         display: `minimal-ui`,
-        // icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/icon.png`,
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
