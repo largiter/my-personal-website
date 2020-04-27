@@ -8,11 +8,14 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
     {
-      resolve: 'gatsby-plugin-web-font-loader',
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
       options: {
-        google: {
-          families: ['Roboto:400,700,900'],
-        },
+        fonts: [
+          {
+            family: `Roboto`,
+            variants: [`400`, `700`, `900`],
+          },
+        ],
       },
     },
     {
