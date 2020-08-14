@@ -8,14 +8,11 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      resolve: 'gatsby-plugin-web-font-loader',
       options: {
-        fonts: [
-          {
-            family: `Roboto`,
-            variants: [`400`, `700`, `900`],
-          },
-        ],
+        google: {
+          families: ['Roboto:400,700,900'],
+        },
       },
     },
     {
@@ -50,8 +47,6 @@ module.exports = {
         icon: `src/images/icon.png`,
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-offline`,
   ],
 };
