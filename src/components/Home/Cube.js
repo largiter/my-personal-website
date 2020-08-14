@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import gsap from 'gsap';
 
@@ -74,7 +74,7 @@ const Cube = () => {
 
   const windowWidth = useWindowSize().width;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (windowWidth < breakpoints.xs) {
       setCubeSize('small');
     } else if (windowWidth > breakpoints.xs && windowWidth < breakpoints.md) {
@@ -84,7 +84,7 @@ const Cube = () => {
     }
   }, [windowWidth]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const cube = cubeWrapper.current;
     const tl = gsap.timeline({ repeat: -1 });
     tl.to(cube, { duration: 15, rotateX: -360, ease: 'none' });
