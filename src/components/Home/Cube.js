@@ -1,9 +1,58 @@
 import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import gsap from 'gsap';
-
 import { breakpoints } from '../../styles/media';
 import useWindowSize from '../General/useWindowSize';
+
+const ALL_CUBE_SIZES = {
+  small: {
+    width: 250,
+    height: 50,
+  },
+  medium: {
+    width: 270,
+    height: 70,
+  },
+  big: {
+    width: 400,
+    height: 100,
+  },
+};
+
+const Cube = () => {
+  const cubeWrapperRef = useRef(null);
+  const [cubeSize, setCubeSize] = useState('small');
+
+  const windowWidth = useWindowSize().width;
+
+  useLayoutEffect(() => {
+    if (windowWidth < breakpoints.xs) {
+      setCubeSize('small');
+    } else if (windowWidth > breakpoints.xs && windowWidth < breakpoints.md) {
+      setCubeSize('medium');
+    } else if (windowWidth > breakpoints.md) {
+      setCubeSize('big');
+    }
+  }, [windowWidth]);
+
+  useLayoutEffect(() => {
+    const cube = cubeWrapperRef.current;
+    const tl = gsap.timeline({ repeat: -1 });
+    tl.to(cube, { duration: 15, rotateX: -360, ease: 'none' });
+  }, []);
+
+  return (
+    <SceneWrapper>
+      <CubeWrapper ref={cubeWrapperRef} height={ALL_CUBE_SIZES[cubeSize].height} width={ALL_CUBE_SIZES[cubeSize].width}>
+        {[...Array(6)].map((_, index) => (
+          <Wall key={index} height={ALL_CUBE_SIZES[cubeSize].height} width={ALL_CUBE_SIZES[cubeSize].width}>
+            {index === 0 ? <p>HELLO</p> : ''}
+          </Wall>
+        ))}
+      </CubeWrapper>
+    </SceneWrapper>
+  );
+};
 
 const SceneWrapper = styled.div`
   padding-top: 2rem;
@@ -52,55 +101,5 @@ const Wall = styled.div`
     transform: rotateX(-90deg) translateZ(${props => props.height / 2}px);
   }
 `;
-
-const Cube = () => {
-  const cubeWrapper = useRef(null);
-  const [cubeSize, setCubeSize] = useState('small');
-
-  const allCubeSizes = {
-    small: {
-      width: 250,
-      height: 50,
-    },
-    medium: {
-      width: 270,
-      height: 70,
-    },
-    big: {
-      width: 400,
-      height: 100,
-    },
-  };
-
-  const windowWidth = useWindowSize().width;
-
-  useLayoutEffect(() => {
-    if (windowWidth < breakpoints.xs) {
-      setCubeSize('small');
-    } else if (windowWidth > breakpoints.xs && windowWidth < breakpoints.md) {
-      setCubeSize('medium');
-    } else if (windowWidth > breakpoints.md) {
-      setCubeSize('big');
-    }
-  }, [windowWidth]);
-
-  useLayoutEffect(() => {
-    const cube = cubeWrapper.current;
-    const tl = gsap.timeline({ repeat: -1 });
-    tl.to(cube, { duration: 15, rotateX: -360, ease: 'none' });
-  }, []);
-
-  return (
-    <SceneWrapper>
-      <CubeWrapper ref={cubeWrapper} height={allCubeSizes[cubeSize].height} width={allCubeSizes[cubeSize].width}>
-        {[...Array(6)].map((_, index) => (
-          <Wall key={index} height={allCubeSizes[cubeSize].height} width={allCubeSizes[cubeSize].width}>
-            {index === 0 ? <p>HELLO</p> : ''}
-          </Wall>
-        ))}
-      </CubeWrapper>
-    </SceneWrapper>
-  );
-};
 
 export default Cube;

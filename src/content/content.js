@@ -10,7 +10,7 @@ export const sections = ['ABOUT ME', 'PORTFOLIO', 'CONTACT'];
 export const home = {
   title: 'Wiktor Kocik',
   intro: 'my name is',
-  role: 'Front-end Developer',
+  role: 'Creative Full Stack Developer',
   text: (
     <>
       I'm a developer based in Kraków, Poland specializing in building modern, high quality, responsive{' '}
@@ -30,7 +30,9 @@ export const about = {
   ),
   subtitle: 'I work mainly with:',
   skills: {
-    dev: ['React / React Native', 'JavaScript (ES6+)', 'HTML / (S)CSS', 'WordPress'],
+    base: ['JavaScript (ES6+)', 'HTML', 'CSS', 'PHP'],
+    dev: ['React', 'React Native', 'Redux', 'SCSS', 'Styled Components', 'GSAP'],
+    back: ['Laravel', 'Wordpress', 'MySql'],
     design: ['Figma', 'Affinity Designer', 'Affinity Photo'],
   },
 };

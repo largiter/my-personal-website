@@ -13,6 +13,59 @@ import Hamburger from './Hamburger';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
 
+const Header = ({ menuItems }) => {
+  const headerWrapper = useRef(null);
+  const mNavVisibility = useSelector(state => state.mNavVisibility);
+  const scroll = useScroll();
+  const [tlHeader] = useState(gsap.timeline({ paused: true }));
+  const [tlHeaderBg] = useState(gsap.timeline({ paused: true }));
+  const [tlHeaderTop] = useState(gsap.timeline({ paused: true }));
+  const windowWidth = useWindowSize().width;
+
+  useEffect(() => {
+    const header = headerWrapper.current;
+    const headerBg = header.children[0];
+
+    tlHeader.to(header, { duration: 0.3, y: '-100%' });
+
+    tlHeaderBg.to(headerBg, { duration: 0.3, x: '100%' });
+    // mobile nav fix
+    tlHeaderBg.to(headerBg, { duration: 0.3 });
+
+    tlHeaderTop.to(header, { duration: 0.3, marginTop: 0 });
+  }, [tlHeader, tlHeaderBg]);
+
+  useDidMountEffect(() => {
+    mNavVisibility ? tlHeaderBg.play() : tlHeaderBg.reverse();
+  }, [mNavVisibility]);
+
+  useDidMountEffect(() => {
+    scroll.direction === 'down' ? tlHeader.play() : tlHeader.reverse();
+
+    scroll.y > 0 ? tlHeaderTop.play() : tlHeaderTop.reverse();
+  }, [scroll]);
+
+  return (
+    <>
+      {windowWidth > breakpoints.md ? '' : <MobileNav />}
+
+      <HeaderWrapper ref={headerWrapper}>
+        <HeaderBg />
+        <Logo />
+
+        {windowWidth > breakpoints.md ? (
+          <DesktopNav menuItems={menuItems} />
+        ) : (
+          <>
+            <Button href="#portfolio">PORTFOLIO</Button>
+            <Hamburger />
+          </>
+        )}
+      </HeaderWrapper>
+    </>
+  );
+};
+
 const HeaderWrapper = styled.header`
   z-index: 999;
   position: fixed;
@@ -20,10 +73,11 @@ const HeaderWrapper = styled.header`
   left: 0;
   width: 100%;
   display: grid;
-  padding: ${props => (props.isHeaderPadding === true ? props.theme.innerSpace : `2rem ${props.theme.innerSpace}`)};
+  padding: ${props => `2rem ${props.theme.innerSpace}`};
   grid-template-columns: auto 1fr 4rem;
   grid-template-rows: ${props => props.theme.headerHeight};
   align-items: center;
+  margin-top: calc(${props => props.theme.innerSpace} - 2rem);
 
   ${media.md`
     grid-template-columns: auto 1fr;
@@ -56,58 +110,9 @@ const Button = styled.a`
   width: fit-content;
   justify-content: center;
   align-items: center;
-  margin-right: 0;
   margin-left: auto;
   margin-right: 3rem;
 `;
-
-const Header = ({ menuItems }) => {
-  const headerWrapper = useRef(null);
-  const mNavVisibility = useSelector(state => state.mNavVisibility);
-  const scroll = useScroll();
-  const [tlHeader] = useState(gsap.timeline({ paused: true }));
-  const [tlHeaderBg] = useState(gsap.timeline({ paused: true }));
-  const [isHeaderPadding, setIsHeaderPadding] = useState(true);
-  const windowWidth = useWindowSize().width;
-
-  useEffect(() => {
-    const header = headerWrapper.current;
-    tlHeader.to(header, { duration: 0.3, y: '-100%' });
-
-    const headerBg = header.children[0];
-    tlHeaderBg.to(headerBg, { duration: 0.3, x: '100%' });
-    tlHeaderBg.to(headerBg, { duration: 0.3 });
-  }, [tlHeader, tlHeaderBg]);
-
-  useDidMountEffect(() => {
-    mNavVisibility ? tlHeaderBg.play() : tlHeaderBg.reverse();
-  }, [mNavVisibility]);
-
-  useDidMountEffect(() => {
-    scroll.direction === 'down' ? tlHeader.play() : tlHeader.reverse();
-    scroll.y === 0 ? setIsHeaderPadding(true) : setIsHeaderPadding(false);
-  }, [scroll]);
-
-  return (
-    <>
-      {windowWidth > breakpoints.md ? '' : <MobileNav />}
-
-      <HeaderWrapper ref={headerWrapper} isHeaderPadding={isHeaderPadding}>
-        <HeaderBg />
-        <Logo />
-
-        {windowWidth > breakpoints.md ? (
-          <DesktopNav menuItems={menuItems} />
-        ) : (
-          <>
-            <Button href="#portfolio">PORTFOLIO</Button>
-            <Hamburger />
-          </>
-        )}
-      </HeaderWrapper>
-    </>
-  );
-};
 
 export default Header;
 

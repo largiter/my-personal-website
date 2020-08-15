@@ -18,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: inherit;
   }
   body {
+    position: relative;
     margin: 0;
     height: 100%;
     overflow-x: hidden;
@@ -52,6 +53,9 @@ const GlobalStyle = createGlobalStyle`
   }
   a {
     text-decoration: none;
+  }
+  svg, h3 {
+  pointer-events: none;
   }
 `;
 

@@ -4,8 +4,45 @@ import styled from 'styled-components';
 import gsap from 'gsap';
 
 import useDidMountEffect from '../General/useDidMountEffect';
-
 import SectionsList from './SectionsList';
+
+const Navigation = () => {
+  const navigationWrapper = useRef(null);
+  const [tl] = useState(gsap.timeline({ paused: true }));
+  const mNavVisibility = useSelector(state => state.mNavVisibility);
+
+  useEffect(() => {
+    const navigation = navigationWrapper.current;
+    const [bgWrapper, menuList] = navigation.children;
+
+    const listItems = menuList.children;
+    const listHovers = Array.from(listItems).map(element => element.children);
+
+    gsap.set(navigation, { autoAlpha: 0 });
+
+    tl.set(navigation, { autoAlpha: 1 });
+    tl.to(bgWrapper.children, { duration: 0.3, x: 0 });
+    tl.set([...listItems, ...listHovers], { autoAlpha: 1 });
+    tl.to(listHovers, { duration: 0.3, y: '-100%' });
+  }, [tl]);
+
+  useDidMountEffect(() => {
+    mNavVisibility ? tl.play() : tl.reverse();
+  }, [mNavVisibility]);
+
+  return (
+    <NavigationMain ref={navigationWrapper}>
+      <BgWrapper>
+        <BgElement />
+        <BgElement />
+        <BgElement />
+        <BgElement />
+      </BgWrapper>
+
+      <MenuList isMobile />
+    </NavigationMain>
+  );
+};
 
 const NavigationMain = styled.nav`
   /* //HEADER HEIGHT!!!!!! */
@@ -68,43 +105,5 @@ const MenuList = styled(SectionsList)`
     color: ${props => props.theme.color.black};
   }
 `;
-
-const Navigation = () => {
-  const navigationWrapper = useRef(null);
-  const [tl] = useState(gsap.timeline({ paused: true }));
-  const mNavVisibility = useSelector(state => state.mNavVisibility);
-
-  useEffect(() => {
-    const navigation = navigationWrapper.current;
-    const [bgWrapper, menuList] = navigation.children;
-
-    const listItems = menuList.children;
-    const listHovers = Array.from(listItems).map(element => element.children);
-
-    gsap.set(navigation, { autoAlpha: 0 });
-
-    tl.set(navigation, { autoAlpha: 1 });
-    tl.to(bgWrapper.children, { duration: 0.3, x: 0 });
-    tl.set([...listItems, ...listHovers], { autoAlpha: 1 });
-    tl.to(listHovers, { duration: 0.3, y: '-100%' });
-  }, [tl]);
-
-  useDidMountEffect(() => {
-    mNavVisibility ? tl.play() : tl.reverse();
-  }, [mNavVisibility]);
-
-  return (
-    <NavigationMain ref={navigationWrapper}>
-      <BgWrapper>
-        <BgElement />
-        <BgElement />
-        <BgElement />
-        <BgElement />
-      </BgWrapper>
-
-      <MenuList isMobile />
-    </NavigationMain>
-  );
-};
 
 export default Navigation;
