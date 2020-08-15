@@ -29,6 +29,11 @@ const SocialIcon = styled.a`
   flex-direction: row;
   align-items: center;
   margin-bottom: 2em;
+  transition: 0.2s;
+
+  &:hover {
+    transform: translateX(1rem);
+  }
 `;
 const SocialText = styled.h3`
   color: ${props => props.theme.color.blue};
