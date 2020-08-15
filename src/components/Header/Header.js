@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import gsap from 'gsap';
+import scrollTo from 'gatsby-plugin-smoothscroll';
 
 import { breakpoints, media } from '../../styles/media';
 import useScroll from '../General/useScroll';
@@ -57,7 +58,7 @@ const Header = ({ menuItems }) => {
           <DesktopNav menuItems={menuItems} />
         ) : (
           <>
-            <Button href="#portfolio">PORTFOLIO</Button>
+            <Button onClick={() => scrollTo('#portfolio')}>PORTFOLIO</Button>
             <Hamburger />
           </>
         )}

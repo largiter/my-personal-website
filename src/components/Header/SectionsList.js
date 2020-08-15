@@ -7,7 +7,6 @@ import { toggleMobileNav } from '../../state/actions/mNavVisibilityA';
 
 const SectionsList = ({ className, isMobile }) => {
   const dispatch = useDispatch();
-
   const hideMobileNav = () => {
     isMobile && dispatch(toggleMobileNav());
   };
@@ -18,7 +17,6 @@ const SectionsList = ({ className, isMobile }) => {
     hideMobileNav();
     scrollTo(id);
   };
-
   return (
     <MenuWrapper className={className}>
       <li>
