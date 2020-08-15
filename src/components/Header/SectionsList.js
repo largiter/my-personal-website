@@ -1,10 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import scrollTo from 'gatsby-plugin-smoothscroll';
 
 import { useDispatch } from 'react-redux';
 import { toggleMobileNav } from '../../state/actions/mNavVisibilityA';
-import { doAnimation } from '../../state/actions/cursorA';
-import useMousePosition from '../General/useMousePosition';
 
 const MenuWrapper = styled.ul``;
 const MenuItem = styled.a`
@@ -24,24 +23,25 @@ const SectionsList = ({ className, isMobile }) => {
     isMobile && dispatch(toggleMobileNav());
   };
 
+  const scrollToId = id => {
+    if (!id) return;
+
+    hideMobileNav();
+    scrollTo(id);
+  };
+
   return (
     <MenuWrapper ref={menuWrapperRef} className={className}>
       <li>
-        <MenuItem className="menu-item" href="#about_me" onClick={hideMobileNav}>
-          ABOUT ME
-        </MenuItem>
+        <MenuItem onClick={() => scrollToId('#about_me')}>ABOUT ME</MenuItem>
         <div />
       </li>
       <li>
-        <MenuItem className="menu-item" href="#portfolio" onClick={hideMobileNav}>
-          PORTFOLIO
-        </MenuItem>
+        <MenuItem onClick={() => scrollToId('#portfolio')}>PORTFOLIO</MenuItem>
         <div />
       </li>
       <li>
-        <MenuItem className="menu-item" href="#contact" onClick={hideMobileNav}>
-          CONTACT
-        </MenuItem>
+        <MenuItem onClick={() => scrollToId('#contact')}>CONTACT</MenuItem>
         <div />
       </li>
     </MenuWrapper>

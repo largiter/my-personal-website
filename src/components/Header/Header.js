@@ -26,13 +26,13 @@ const Header = ({ menuItems }) => {
     const header = headerWrapper.current;
     const headerBg = header.children[0];
 
-    tlHeader.to(header, { duration: 0.3, y: '-100%' });
+    tlHeader.to(header, { duration: 0.2, y: '-100%' });
 
-    tlHeaderBg.to(headerBg, { duration: 0.3, x: '100%' });
+    tlHeaderBg.to(headerBg, { duration: 0.2, x: '100%' });
     // mobile nav fix
-    tlHeaderBg.to(headerBg, { duration: 0.3 });
+    tlHeaderBg.to(headerBg, { duration: 0.2 });
 
-    tlHeaderTop.to(header, { duration: 0.3, marginTop: 0 });
+    tlHeaderTop.to(header, { duration: 0.2, marginTop: 0 });
   }, [tlHeader, tlHeaderBg]);
 
   useDidMountEffect(() => {
