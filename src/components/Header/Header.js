@@ -43,14 +43,14 @@ const Header = ({ menuItems }) => {
   useDidMountEffect(() => {
     scroll.direction === 'down' ? tlHeader.play() : tlHeader.reverse();
 
-    scroll.y > 0 ? tlHeaderTop.play() : tlHeaderTop.reverse();
+    scroll.y > 1 ? tlHeaderTop.play() : tlHeaderTop.reverse();
   }, [scroll]);
 
   return (
     <>
       {windowWidth > breakpoints.md ? '' : <MobileNav />}
 
-      <HeaderWrapper ref={headerWrapper}>
+      <HeaderWrapper ref={headerWrapper} scrollY={scroll.y}>
         <HeaderBg />
         <Logo />
 
@@ -79,6 +79,7 @@ const HeaderWrapper = styled.header`
   grid-template-rows: ${props => props.theme.headerHeight};
   align-items: center;
   margin-top: calc(${props => props.theme.innerSpace} - 2rem);
+  box-shadow: ${props => (props.scrollY > 1 ? '0 5px 10px 0 rgba(0, 0, 0, 0.05)' : 'none')};
 
   ${media.md`
     grid-template-columns: auto 1fr;

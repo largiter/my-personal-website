@@ -3,19 +3,8 @@ import { useSelector } from 'react-redux';
 import styled, { ThemeContext } from 'styled-components';
 import gsap from 'gsap';
 
+import scrollTo from 'gatsby-plugin-smoothscroll';
 import useDidMountEffect from '../General/useDidMountEffect';
-
-const Icon = styled.a`
-  z-index: 999;
-  color: ${props => props.theme.color.blue};
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 4.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 
 const Logo = () => {
   const mNavVisibility = useSelector(state => state.mNavVisibility);
@@ -31,10 +20,20 @@ const Logo = () => {
   }, [mNavVisibility]);
 
   return (
-    <Icon href="#" ref={icon}>
+    <Icon onClick={() => scrollTo('#home')} ref={icon}>
       WK
     </Icon>
   );
 };
+
+const Icon = styled.button`
+  z-index: 999;
+  color: ${props => props.theme.color.blue};
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 4.5rem;
+  display: flex;
+`;
 
 export default Logo;

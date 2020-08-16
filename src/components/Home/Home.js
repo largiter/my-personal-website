@@ -10,7 +10,7 @@ import Section from '../General/Section';
 import Button from '../Button/Button';
 
 const Home = () => (
-  <Section background="dark" columns={2} respectHeader>
+  <Section background="dark" columns={2} respectHeader idName="home">
     <Cube />
 
     <TextWrapper>

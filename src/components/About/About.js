@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Section from '../General/Section';
 import Images from './Images';
 import { about } from '../../content/content';
+
+const About = () => (
+  <Section idName="about_me" columns={2}>
+    <TextWrapper>
+      <Title>{about.title}</Title>
+      <Text>{about.text}</Text>
+
+      <ListTitle>{about.subtitle}</ListTitle>
+      <List>
+        {about.skills.dev.map((skill, index) => (
+          <ListItem key={index}>{skill}</ListItem>
+        ))}
+      </List>
+    </TextWrapper>
+
+    <Images />
+  </Section>
+);
 
 const TextWrapper = styled.div``;
 const Title = styled.h2`
@@ -34,23 +52,5 @@ const ListItem = styled.li`
     margin-right: 1rem;
   }
 `;
-
-const About = () => (
-  <Section idName="about_me" columns={2}>
-    <TextWrapper>
-      <Title>{about.title}</Title>
-      <Text>{about.text}</Text>
-
-      <ListTitle>{about.subtitle}</ListTitle>
-      <List>
-        {about.skills.dev.map((skill, index) => (
-          <ListItem key={index}>{skill}</ListItem>
-        ))}
-      </List>
-    </TextWrapper>
-
-    <Images />
-  </Section>
-);
 
 export default About;

@@ -4,6 +4,25 @@ import styled, { css } from 'styled-components';
 import useWindowSize from './useWindowSize';
 import { media } from '../../styles/media';
 
+const Section = ({ children, background, columns, idName, respectHeader }) => {
+  const windowSize = useWindowSize();
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  useEffect(() => {
+    setWindowHeight(windowSize.height);
+    // debug mobile browser fixed elements
+    // eslint-disable-next-line
+  }, [windowSize.width]);
+
+  return (
+    <StyledSection id={idName} minHeight={windowHeight ? `${windowHeight}px` : '100vh'} background={background}>
+      <Wrapper columns={columns} respectHeader={respectHeader}>
+        {children}
+      </Wrapper>
+    </StyledSection>
+  );
+};
+
 const StyledSection = styled.section`
   overflow: hidden;
   position: relative;
@@ -44,24 +63,5 @@ const Wrapper = styled.div`
          : ''}
   `}
 `;
-
-const Section = ({ children, background, columns, idName, respectHeader }) => {
-  const windowSize = useWindowSize();
-  const [windowHeight, setWindowHeight] = useState(0);
-
-  useEffect(() => {
-    setWindowHeight(windowSize.height);
-    // debug mobile browser fixed elements
-    // eslint-disable-next-line
-  }, [windowSize.width]);
-
-  return (
-    <StyledSection id={idName} minHeight={windowHeight ? `${windowHeight}px` : '100vh'} background={background}>
-      <Wrapper columns={columns} respectHeader={respectHeader}>
-        {children}
-      </Wrapper>
-    </StyledSection>
-  );
-};
 
 export default Section;

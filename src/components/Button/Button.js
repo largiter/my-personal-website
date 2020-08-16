@@ -11,7 +11,7 @@ const Button = ({ children, scrollId, isDark }) => (
 
 const StyledButton = styled.button`
   position: relative;
-  z-index: 999;
+  z-index: 10;
   cursor: pointer;
   border: none;
   display: flex;
