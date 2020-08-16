@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { media } from '../../styles/media';
+import Button from '../Button/Button';
 
 const Form = styled.form``;
 const Label = styled.label`
@@ -53,7 +54,9 @@ const ContactForm = () => (
       Message
       <TextArea name="message" id="message" rows="5" />
     </Label>
-    <Submit type="submit">Send</Submit>
+    <Button isDark type="submit">
+      Send
+    </Button>
   </Form>
 );
 

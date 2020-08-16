@@ -9,6 +9,21 @@ const GlobalStyle = createGlobalStyle`
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     scroll-behavior: smooth;
+     /* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+background: ${props => props.theme.color.black};
+border: 1px solid ${props => props.theme.color.whiteDark};
+}
+::-webkit-scrollbar-thumb {
+  background: ${props => props.theme.color.blue};
+  border: 1px solid ${props => props.theme.color.whiteDark};
+}
+::-webkit-scrollbar-thumb:hover {
+  background: ${props => props.theme.color.white};;
+}
   }
   *,
   *::before,
@@ -47,12 +62,14 @@ const GlobalStyle = createGlobalStyle`
   button {
     background: initial;
     border: initial;
+    outline: none;
   }
   textarea {
     resize: vertical;
   }
   a {
     text-decoration: none;
+    color: ${props => props.theme.color.blue};
   }
   svg, h3 {
   pointer-events: none;

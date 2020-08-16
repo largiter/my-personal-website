@@ -19,7 +19,12 @@ const Text = styled.p`
 const Footer = () => (
   <Wrapper>
     <End>THE END</End>
-    <Text>Designed & Built by Wiktor Kocik</Text>
+    <Text>
+      Designed & Built by{' '}
+      <strong>
+        <a href="https://github.com/largiter">Wiktor Kocik</a>
+      </strong>
+    </Text>
   </Wrapper>
 );
 

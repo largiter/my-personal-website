@@ -7,6 +7,24 @@ import { home } from '../../content/content';
 import Cube from './Cube';
 import Icons from './Icons';
 import Section from '../General/Section';
+import Button from '../Button/Button';
+
+const Home = () => (
+  <Section background="dark" columns={2} respectHeader>
+    <Cube />
+
+    <TextWrapper>
+      <Intro>{home.intro}</Intro>
+      <Name>{home.title}</Name>
+      <Role>{home.role}</Role>
+
+      <Desc>{home.text}</Desc>
+      <Button scrollId="#about_me">{home.btn}</Button>
+    </TextWrapper>
+
+    <Icons />
+  </Section>
+);
 
 const TextWrapper = styled.div`
   margin-top: 10vw;
@@ -53,42 +71,5 @@ const Desc = styled.p`
     margin-top: 5rem;
   `}
 `;
-const Button = styled.a`
-  cursor: pointer;
-  border: none;
-  display: flex;
-  width: fit-content;
-  background: ${props => props.theme.color.blue};
-  color: ${props => props.theme.color.black};
-  padding: 0.5em 1.5em;
-  margin-top: 4rem;
-  margin-right: 0;
-  margin-left: auto;
-  border-radius: ${props => props.theme.radius};
-  font-size: 1.8rem;
-  font-weight: 700;
-
-  ${media.md`
-    margin-top: 6rem;
-    padding: 0.7em 1.9em;
-  `}
-`;
-
-const Home = () => (
-  <Section background="dark" columns={2} respectHeader>
-    <Cube />
-
-    <TextWrapper>
-      <Intro>{home.intro}</Intro>
-      <Name>{home.title}</Name>
-      <Role>{home.role}</Role>
-
-      <Desc>{home.text}</Desc>
-      <Button href="#about_me">{home.btn}</Button>
-    </TextWrapper>
-
-    <Icons />
-  </Section>
-);
 
 export default Home;
